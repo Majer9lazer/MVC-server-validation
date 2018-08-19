@@ -1,0 +1,99 @@
+﻿@model IEnumerable<MVC_validation_on_server.Models.CallingCourier>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BIN_IIN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactPerson)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SendersAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DesirableDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WhenPickUpShipment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Weight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FormOfPayment.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City.CityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country.CountryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartureType.DepartureTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TariffsView.TariffsViewName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BIN_IIN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactPerson)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SendersAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DesirableDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WhenPickUpShipment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Weight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FormOfPayment.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City.CityName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Country.CountryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartureType.DepartureTypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TariffsView.TariffsViewName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CallingCourierId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CallingCourierId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CallingCourierId })
+        </td>
+    </tr>
+}
+
+</table>

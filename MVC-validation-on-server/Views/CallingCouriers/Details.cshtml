@@ -1,0 +1,114 @@
+﻿@model MVC_validation_on_server.Models.CallingCourier
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CallingCourier</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BIN_IIN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BIN_IIN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactPerson)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactPerson)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SendersAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SendersAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DesirableDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DesirableDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WhenPickUpShipment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WhenPickUpShipment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Weight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FormOfPayment.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FormOfPayment.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City.CityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City.CityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Country.CountryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Country.CountryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartureType.DepartureTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartureType.DepartureTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TariffsView.TariffsViewName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TariffsView.TariffsViewName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CallingCourierId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
