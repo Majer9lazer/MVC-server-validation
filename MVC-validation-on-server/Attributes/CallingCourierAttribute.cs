@@ -19,9 +19,9 @@ namespace MVC_validation_on_server.Attributes
                 if (payment == null || !payment.Name.Contains("Договор"))
                 {
                     if (callingCourier.WhenPickUpShipment.Hours < 8 ||
-                        (callingCourier.WhenPickUpShipment.Hours > 22 || callingCourier.WhenPickUpShipment.Minutes > 0))
+                        (callingCourier.WhenPickUpShipment.Hours > 22 && callingCourier.WhenPickUpShipment.Minutes < 0))
                     {
-                        ErrorMessage = "Курьер может забрать посылку только с 8:00 до 22:00ы";
+                        ErrorMessage = "Курьер может забрать посылку только с 8:00 до 22:00";
                         return false;
                     }
                 }
@@ -35,11 +35,23 @@ namespace MVC_validation_on_server.Attributes
                         return false;
                     }
                 }
+
+                int? thermogramId = _db.TariffsViews.FirstOrDefault(f => f.TariffsViewName.Contains("Экспресс"))
+                    ?.TariffsViewId;
+                if (thermogramId != null && thermogramId == callingCourier.TariffsViewId)
+                {
+                    if (callingCourier.Weight > 1000)
+                    {
+                        ErrorMessage = "доставка груза по данному тарифу возможна только до 1000 килограмм";
+                        return false;
+                    }
+                  
+                }
                 return true;
             }
             else
             {
-                ErrorMessage = "Не удалось преобразоват объект к типу \'Feedback\'";
+                ErrorMessage = "Не удалось преобразоват объект к типу \'CallingCourier\'";
                 return false;
 
             }
