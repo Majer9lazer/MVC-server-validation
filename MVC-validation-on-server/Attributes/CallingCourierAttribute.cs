@@ -16,7 +16,14 @@ namespace MVC_validation_on_server.Attributes
             if (value is CallingCourier callingCourier)
             {
                 FormOfPayment payment = _db.FormOfPayments.Find(callingCourier.FormOfPaymentId);
+                if (payment != null && payment.Name.Contains("Договор"))
+                {
 
+                }
+                else
+                {
+                  
+                }
                 return true;
             }
             else
