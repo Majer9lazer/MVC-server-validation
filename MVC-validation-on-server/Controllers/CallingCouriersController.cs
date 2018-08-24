@@ -40,6 +40,17 @@ namespace MVC_validation_on_server.Controllers
         // GET: CallingCouriers/Create
         public ActionResult Create()
         {
+            if (!db.Countries.Any(f => f.CountryName.Contains("Казахстан")) && !db.Cities.Any(f =>
+                    f.CityName.Contains("Алматы") && f.Country.CountryName.Contains("Казахстан")))
+            {
+                db.Countries.Add(new Country() { CountryName = "Казахстан" });
+                db.SaveChanges();
+                db.Cities.Add(new City()
+                {
+                    CityName = "Алматы",
+                    CountryId = db.Countries.FirstOrDefault(f => f.CountryName.Contains("Казахстан")).CountryId
+                });
+            }
             ViewBag.FormOfPaymentId = new SelectList(db.FormOfPayments, "FormOfPaymentId", "Name");
             ViewBag.CityId = new SelectList(db.Cities, "CityId", "CityName");
             ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "CountryName");

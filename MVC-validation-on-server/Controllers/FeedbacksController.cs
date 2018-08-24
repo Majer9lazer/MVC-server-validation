@@ -6,7 +6,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Configuration;
+using System.Net.Mail;
 using System.Web;
+using System.Web.Mail;
 using System.Web.Mvc;
 using MVC_validation_on_server.Models;
 
@@ -15,7 +17,7 @@ namespace MVC_validation_on_server.Controllers
     public class FeedbacksController : Controller
     {
         private ServerValidation_DbEntities db = new ServerValidation_DbEntities();
-
+        
         // GET: Feedbacks
         public ActionResult Index()
         {
@@ -55,14 +57,13 @@ namespace MVC_validation_on_server.Controllers
                     });
                     db.SaveChanges();
                 }
-               
+
             }
             catch (Exception)
             {
                 // ignored
             }
 
-            var appsettings = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
             ViewBag.MessageThemeId = new SelectList(db.MessageThemes, "MessageThemeId", "ThemeName");
             return View();
         }
@@ -76,6 +77,9 @@ namespace MVC_validation_on_server.Controllers
         {
             if (ModelState.IsValid)
             {
+               
+                    
+                
                 db.Feedbacks.Add(feedback);
                 db.SaveChanges();
                 return RedirectToAction("Index");

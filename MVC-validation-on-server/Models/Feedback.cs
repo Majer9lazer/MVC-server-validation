@@ -8,12 +8,13 @@
 //------------------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
+using MVC_validation_on_server.Attributes;
 
 namespace MVC_validation_on_server.Models
 {
     using System;
     using System.Collections.Generic;
-
+    [FeedBack]
     public partial class Feedback
     {
         public int Id { get; set; }
@@ -25,7 +26,7 @@ namespace MVC_validation_on_server.Models
         public int MessageThemeId { get; set; }
         [Required]
         public string Question { get; set; }
-        [Required]
+
         public virtual MessageTheme MessageTheme { get; set; }
     }
 }
