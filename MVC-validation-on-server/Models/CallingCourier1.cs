@@ -4,9 +4,11 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using MVC_validation_on_server.Attributes;
 
 namespace MVC_validation_on_server.Models
 {
+    [CallingCourier]
     public class CallingCourier
     {
         public int CallingCourierId { get; set; }

@@ -155,6 +155,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Attributes\CallingCourierAttribute.cs" />
     <Compile Include="Attributes\FeedBackAttribute.cs" />
     <Compile Include="Controllers\CallingCouriersController.cs" />
     <Compile Include="Controllers\FeedbacksController.cs" />
