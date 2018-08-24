@@ -33,6 +33,16 @@ namespace MVC_validation_on_server.Controllers
                     });
                     db.SaveChanges();
                 }
+
+                if (!db.Cities.Any(a => a.CityName.Contains("Астана")))
+                {
+                    db.Cities.Add(new City()
+                    {
+                        CityName = "Астана",
+                        CountryId = db.Countries.FirstOrDefault(f => f.CountryName.Contains("Казахстан")).CountryId
+                    });
+                    db.SaveChanges();
+                }
                  if (!db.FormOfPayments.Any(f =>
                     f.Name.Contains("Наличные") && f.Name.Contains("Безналичные") && f.Name.Contains("Договор")))
                 {
