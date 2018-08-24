@@ -15,6 +15,61 @@ namespace MVC_validation_on_server.Controllers
     {
         private ServerValidation_DbEntities db = new ServerValidation_DbEntities();
 
+        public CallingCouriersController()
+        {
+            try
+            {
+
+
+                if (!db.Countries.Any(f => f.CountryName.Contains("Казахстан")) && !db.Cities.Any(f =>
+                        f.CityName.Contains("Алматы") && f.Country.CountryName.Contains("Казахстан")))
+                {
+                    db.Countries.Add(new Country() { CountryName = "Казахстан" });
+                    db.SaveChanges();
+                    db.Cities.Add(new City()
+                    {
+                        CityName = "Алматы",
+                        CountryId = db.Countries.FirstOrDefault(f => f.CountryName.Contains("Казахстан")).CountryId
+                    });
+                    db.SaveChanges();
+                }
+                else if (!db.FormOfPayments.Any(f =>
+                    f.Name.Contains("Наличные") || f.Name.Contains("Безналичные") || f.Name.Contains("Договор")))
+                {
+                    db.FormOfPayments.AddRange(new[]
+                    {
+                    new FormOfPayment() { Name = "Наличные" },
+                    new FormOfPayment() { Name = "Безналичные" },
+                    new FormOfPayment() { Name = "Договор" }
+                });
+                    db.SaveChanges();
+                }
+                else if (!db.DepartureTypes.Any(a => a.DepartureTypeName.Contains("Документы")
+                || a.DepartureTypeName.Contains("Посылка") || a.DepartureTypeName.Contains("Термогруз")))
+                {
+                    db.DepartureTypes.AddRange(new[]
+                    {
+                        new DepartureType(){DepartureTypeName = "Документы"},
+                        new DepartureType(){DepartureTypeName = "Посылка"},
+                        new DepartureType(){DepartureTypeName = "Термогруз"},
+                    });
+                    db.SaveChanges();
+                }
+                else if (!db.TariffsViews.Any(a => a.TariffsViewName.Contains("Экспресс") || a.TariffsViewName.Contains("Эконом")))
+                {
+                    db.TariffsViews.AddRange(new[]
+                    {
+                        new TariffsView() { TariffsViewName = "Экспресс" },
+                        new TariffsView() { TariffsViewName = "Эконом" }
+                    });
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
+        }
         // GET: CallingCouriers
         public async Task<ActionResult> Index()
         {
@@ -40,17 +95,7 @@ namespace MVC_validation_on_server.Controllers
         // GET: CallingCouriers/Create
         public ActionResult Create()
         {
-            if (!db.Countries.Any(f => f.CountryName.Contains("Казахстан")) && !db.Cities.Any(f =>
-                    f.CityName.Contains("Алматы") && f.Country.CountryName.Contains("Казахстан")))
-            {
-                db.Countries.Add(new Country() { CountryName = "Казахстан" });
-                db.SaveChanges();
-                db.Cities.Add(new City()
-                {
-                    CityName = "Алматы",
-                    CountryId = db.Countries.FirstOrDefault(f => f.CountryName.Contains("Казахстан")).CountryId
-                });
-            }
+
             ViewBag.FormOfPaymentId = new SelectList(db.FormOfPayments, "FormOfPaymentId", "Name");
             ViewBag.CityId = new SelectList(db.Cities, "CityId", "CityName");
             ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "CountryName");

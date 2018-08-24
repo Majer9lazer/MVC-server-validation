@@ -10,10 +10,12 @@ namespace MVC_validation_on_server.Attributes
     public class CallingCourierAttribute : ValidationAttribute
     {
         private readonly ServerValidation_DbEntities _db = new ServerValidation_DbEntities();
+
         public override bool IsValid(object value)
         {
-            if (value is CallingCourier feedback)
+            if (value is CallingCourier callingCourier)
             {
+                FormOfPayment payment = _db.FormOfPayments.Find(callingCourier.FormOfPaymentId);
 
                 return true;
             }
@@ -25,3 +27,4 @@ namespace MVC_validation_on_server.Attributes
             }
         }
     }
+}
