@@ -53,7 +53,7 @@ namespace MVC_validation_on_server.Controllers
                     db.SaveChanges();
                 }
                  if (!db.DepartureTypes.Any(a => a.DepartureTypeName.Contains("Документы")
-                && a.DepartureTypeName.Contains("Посылка") && a.DepartureTypeName.Contains("Термогруз")))
+                && a.DepartureTypeName.Contains("Посылка") || a.DepartureTypeName.Contains("Термогруз")))
                 {
                     db.DepartureTypes.AddRange(new[]
                     {
@@ -63,7 +63,7 @@ namespace MVC_validation_on_server.Controllers
                     });
                     db.SaveChanges();
                 }
-                 if (!db.TariffsViews.Any(a => a.TariffsViewName.Contains("Экспресс") && a.TariffsViewName.Contains("Эконом")))
+                 if (!db.TariffsViews.Any(a => a.TariffsViewName.Contains("Экспресс") || a.TariffsViewName.Contains("Эконом")))
                 {
                     db.TariffsViews.AddRange(new[]
                     {
