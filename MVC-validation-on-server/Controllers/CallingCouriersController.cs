@@ -33,8 +33,8 @@ namespace MVC_validation_on_server.Controllers
                     });
                     db.SaveChanges();
                 }
-                else if (!db.FormOfPayments.Any(f =>
-                    f.Name.Contains("Наличные") || f.Name.Contains("Безналичные") || f.Name.Contains("Договор")))
+                 if (!db.FormOfPayments.Any(f =>
+                    f.Name.Contains("Наличные") && f.Name.Contains("Безналичные") && f.Name.Contains("Договор")))
                 {
                     db.FormOfPayments.AddRange(new[]
                     {
@@ -44,8 +44,8 @@ namespace MVC_validation_on_server.Controllers
                 });
                     db.SaveChanges();
                 }
-                else if (!db.DepartureTypes.Any(a => a.DepartureTypeName.Contains("Документы")
-                || a.DepartureTypeName.Contains("Посылка") || a.DepartureTypeName.Contains("Термогруз")))
+                 if (!db.DepartureTypes.Any(a => a.DepartureTypeName.Contains("Документы")
+                && a.DepartureTypeName.Contains("Посылка") && a.DepartureTypeName.Contains("Термогруз")))
                 {
                     db.DepartureTypes.AddRange(new[]
                     {
@@ -55,7 +55,7 @@ namespace MVC_validation_on_server.Controllers
                     });
                     db.SaveChanges();
                 }
-                else if (!db.TariffsViews.Any(a => a.TariffsViewName.Contains("Экспресс") || a.TariffsViewName.Contains("Эконом")))
+                 if (!db.TariffsViews.Any(a => a.TariffsViewName.Contains("Экспресс") && a.TariffsViewName.Contains("Эконом")))
                 {
                     db.TariffsViews.AddRange(new[]
                     {
