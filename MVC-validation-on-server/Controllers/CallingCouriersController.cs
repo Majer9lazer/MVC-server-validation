@@ -13,16 +13,14 @@ namespace MVC_validation_on_server.Controllers
 {
     public class CallingCouriersController : Controller
     {
-        private ServerValidation_DbEntities db = new ServerValidation_DbEntities();
+        private  ServerValidation_DbEntities db = new ServerValidation_DbEntities();
 
-        public CallingCouriersController()
+        public  CallingCouriersController()
         {
             try
             {
-
-
-                if (!db.Countries.Any(f => f.CountryName.Contains("Казахстан")) && !db.Cities.Any(f =>
-                        f.CityName.Contains("Алматы") && f.Country.CountryName.Contains("Казахстан")))
+                if (!db.Countries.Any(f => f.CountryName.Contains("Казахстан")) || !db.Cities.Any(f =>
+                        f.CityName.Contains("Алматы")))
                 {
                     db.Countries.Add(new Country() { CountryName = "Казахстан" });
                     db.SaveChanges();
@@ -44,7 +42,7 @@ namespace MVC_validation_on_server.Controllers
                     db.SaveChanges();
                 }
                  if (!db.FormOfPayments.Any(f =>
-                    f.Name.Contains("Наличные") && f.Name.Contains("Безналичные") && f.Name.Contains("Договор")))
+                    f.Name.Contains("Наличные") || f.Name.Contains("Безналичные") || f.Name.Contains("Договор")))
                 {
                     db.FormOfPayments.AddRange(new[]
                     {
