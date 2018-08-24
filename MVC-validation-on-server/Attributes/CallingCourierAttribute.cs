@@ -18,8 +18,18 @@ namespace MVC_validation_on_server.Attributes
                 FormOfPayment payment = _db.FormOfPayments.Find(callingCourier.FormOfPaymentId);
                 if (payment == null || !payment.Name.Contains("Договор"))
                 {
-                    if (callingCourier.WhenPickUpShipment.Hours < 8 ||
-                        (callingCourier.WhenPickUpShipment.Hours > 22 && callingCourier.WhenPickUpShipment.Minutes < 0))
+                    if (callingCourier.WhenPickUpShipment.Hours < 8)
+                    {
+                        ErrorMessage = "Курьер может забрать посылку только с 8:00 до 22:00";
+                        return false;
+                    }
+                    if (callingCourier.WhenPickUpShipment.Hours > 22)
+                    {
+                        ErrorMessage = "Курьер может забрать посылку только с 8:00 до 22:00";
+                        return false;
+                    }
+
+                    if (callingCourier.WhenPickUpShipment.Hours == 22 && callingCourier.WhenPickUpShipment.Minutes > 0)
                     {
                         ErrorMessage = "Курьер может забрать посылку только с 8:00 до 22:00";
                         return false;
