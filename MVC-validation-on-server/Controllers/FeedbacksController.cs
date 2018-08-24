@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Configuration;
 using System.Web;
 using System.Web.Mvc;
 using MVC_validation_on_server.Models;
@@ -39,6 +41,28 @@ namespace MVC_validation_on_server.Controllers
         // GET: Feedbacks/Create
         public ActionResult Create()
         {
+            try
+            {
+                if (db.MessageThemes.Count() < 5)
+                {
+                    db.MessageThemes.AddRange(new[]
+                    {
+                        new MessageTheme("Вопросы общего характера"),
+                        new MessageTheme("Жалобы и предложения"),
+                        new MessageTheme("Замечания и предложения по работе сайта"),
+                        new MessageTheme("Поиск отправления"),
+                        new MessageTheme("Финансовые вопросы"),
+                    });
+                    db.SaveChanges();
+                }
+               
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+
+            var appsettings = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
             ViewBag.MessageThemeId = new SelectList(db.MessageThemes, "MessageThemeId", "ThemeName");
             return View();
         }

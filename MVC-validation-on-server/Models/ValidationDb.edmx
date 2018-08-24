@@ -4,307 +4,307 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ServerValidation_DbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="CallingCourier">
-          <Key>
-            <PropertyRef Name="CallingCourierId" />
-          </Key>
-          <Property Name="CallingCourierId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BIN/IIN" Type="char" MaxLength="12" Nullable="false" />
-          <Property Name="ContactPerson" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="SendersAddress" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="DesirableDate" Type="datetime" Nullable="false" />
-          <Property Name="WhenPickUpShipment" Type="time" Precision="7" Nullable="false" />
-          <Property Name="FormOfPaymentId" Type="int" Nullable="false" />
-          <Property Name="CountryId" Type="int" Nullable="false" />
-          <Property Name="CityId" Type="int" Nullable="false" />
-          <Property Name="DepartureTypeId" Type="int" Nullable="false" />
-          <Property Name="TariffsViewId" Type="int" Nullable="false" />
-          <Property Name="Weight" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-        </EntityType>
-        <EntityType Name="City">
-          <Key>
-            <PropertyRef Name="CityId" />
-          </Key>
-          <Property Name="CityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CityName" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="CountryId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Country">
-          <Key>
-            <PropertyRef Name="CountryId" />
-          </Key>
-          <Property Name="CountryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CountryName" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="DepartureType">
-          <Key>
-            <PropertyRef Name="DepartureTypeId" />
-          </Key>
-          <Property Name="DepartureTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DepartureTypeName" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="DescriptionOfGoods">
-          <Key>
-            <PropertyRef Name="DescriptionOfGoodsId" />
-          </Key>
-          <Property Name="DescriptionOfGoodsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CountryId" Type="int" Nullable="false" />
-          <Property Name="CityId" Type="int" Nullable="false" />
-          <Property Name="DepartureTypeId" Type="int" Nullable="false" />
-          <Property Name="TariffsViewId" Type="int" Nullable="false" />
-          <Property Name="Weight" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Feedback">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="250" />
-          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="MessageThemeId" Type="int" Nullable="false" />
-          <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="FormOfPayment">
-          <Key>
-            <PropertyRef Name="FormOfPaymentId" />
-          </Key>
-          <Property Name="FormOfPaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="MessageTheme">
-          <Key>
-            <PropertyRef Name="MessageThemeId" />
-          </Key>
-          <Property Name="MessageThemeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ThemeName" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Sender">
-          <Key>
-            <PropertyRef Name="SenderId" />
-          </Key>
-          <Property Name="SenderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BIN/IIN" Type="char" MaxLength="12" Nullable="false" />
-          <Property Name="ContactPerson" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="SendersAddress" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="DesirableDate" Type="datetime" Nullable="false" />
-          <Property Name="WhenPickUpShipment" Type="time" Precision="7" Nullable="false" />
-          <Property Name="FormOfPaymentId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="TariffsView">
-          <Key>
-            <PropertyRef Name="TariffsViewId" />
-          </Key>
-          <Property Name="TariffsViewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TariffsViewName" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_CallingCourier_FormOfPayment">
-          <End Role="FormOfPayment" Type="Self.FormOfPayment" Multiplicity="1" />
-          <End Role="CallingCourier" Type="Self.CallingCourier" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FormOfPayment">
-              <PropertyRef Name="FormOfPaymentId" />
-            </Principal>
-            <Dependent Role="CallingCourier">
-              <PropertyRef Name="FormOfPaymentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CallingCourier_ToCity">
-          <End Role="City" Type="Self.City" Multiplicity="1" />
-          <End Role="CallingCourier" Type="Self.CallingCourier" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="City">
-              <PropertyRef Name="CityId" />
-            </Principal>
-            <Dependent Role="CallingCourier">
-              <PropertyRef Name="CityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CallingCourier_ToCountry">
-          <End Role="Country" Type="Self.Country" Multiplicity="1" />
-          <End Role="CallingCourier" Type="Self.CallingCourier" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Country">
-              <PropertyRef Name="CountryId" />
-            </Principal>
-            <Dependent Role="CallingCourier">
-              <PropertyRef Name="CountryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CallingCourier_ToDepartureType">
-          <End Role="DepartureType" Type="Self.DepartureType" Multiplicity="1" />
-          <End Role="CallingCourier" Type="Self.CallingCourier" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DepartureType">
-              <PropertyRef Name="DepartureTypeId" />
-            </Principal>
-            <Dependent Role="CallingCourier">
-              <PropertyRef Name="DepartureTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CallingCourier_ToTariffsView">
-          <End Role="TariffsView" Type="Self.TariffsView" Multiplicity="1" />
-          <End Role="CallingCourier" Type="Self.CallingCourier" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TariffsView">
-              <PropertyRef Name="TariffsViewId" />
-            </Principal>
-            <Dependent Role="CallingCourier">
-              <PropertyRef Name="TariffsViewId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_City_ToCountry">
-          <End Role="Country" Type="Self.Country" Multiplicity="1" />
-          <End Role="City" Type="Self.City" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Country">
-              <PropertyRef Name="CountryId" />
-            </Principal>
-            <Dependent Role="City">
-              <PropertyRef Name="CountryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DescriptionOfGoods_ToCity">
-          <End Role="City" Type="Self.City" Multiplicity="1" />
-          <End Role="DescriptionOfGoods" Type="Self.DescriptionOfGoods" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="City">
-              <PropertyRef Name="CityId" />
-            </Principal>
-            <Dependent Role="DescriptionOfGoods">
-              <PropertyRef Name="CityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DescriptionOfGoods_ToCountry">
-          <End Role="Country" Type="Self.Country" Multiplicity="1" />
-          <End Role="DescriptionOfGoods" Type="Self.DescriptionOfGoods" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Country">
-              <PropertyRef Name="CountryId" />
-            </Principal>
-            <Dependent Role="DescriptionOfGoods">
-              <PropertyRef Name="CountryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DescriptionOfGoods_ToDepartureType">
-          <End Role="DepartureType" Type="Self.DepartureType" Multiplicity="1" />
-          <End Role="DescriptionOfGoods" Type="Self.DescriptionOfGoods" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DepartureType">
-              <PropertyRef Name="DepartureTypeId" />
-            </Principal>
-            <Dependent Role="DescriptionOfGoods">
-              <PropertyRef Name="DepartureTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DescriptionOfGoods_ToTariffsView">
-          <End Role="TariffsView" Type="Self.TariffsView" Multiplicity="1" />
-          <End Role="DescriptionOfGoods" Type="Self.DescriptionOfGoods" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TariffsView">
-              <PropertyRef Name="TariffsViewId" />
-            </Principal>
-            <Dependent Role="DescriptionOfGoods">
-              <PropertyRef Name="TariffsViewId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Feedback_ToMessageTheme">
-          <End Role="MessageTheme" Type="Self.MessageTheme" Multiplicity="1" />
-          <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MessageTheme">
-              <PropertyRef Name="MessageThemeId" />
-            </Principal>
-            <Dependent Role="Feedback">
-              <PropertyRef Name="MessageThemeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FormOfPayment_FormOfPayment">
-          <End Role="FormOfPayment" Type="Self.FormOfPayment" Multiplicity="1" />
-          <End Role="Sender" Type="Self.Sender" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FormOfPayment">
-              <PropertyRef Name="FormOfPaymentId" />
-            </Principal>
-            <Dependent Role="Sender">
-              <PropertyRef Name="FormOfPaymentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="ServerValidation_DbModelStoreContainer">
-          <EntitySet Name="CallingCourier" EntityType="Self.CallingCourier" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DepartureType" EntityType="Self.DepartureType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DescriptionOfGoods" EntityType="Self.DescriptionOfGoods" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Feedback" EntityType="Self.Feedback" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FormOfPayment" EntityType="Self.FormOfPayment" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MessageTheme" EntityType="Self.MessageTheme" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Sender" EntityType="Self.Sender" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TariffsView" EntityType="Self.TariffsView" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_CallingCourier_FormOfPayment" Association="Self.FK_CallingCourier_FormOfPayment">
-            <End Role="FormOfPayment" EntitySet="FormOfPayment" />
-            <End Role="CallingCourier" EntitySet="CallingCourier" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CallingCourier_ToCity" Association="Self.FK_CallingCourier_ToCity">
-            <End Role="City" EntitySet="City" />
-            <End Role="CallingCourier" EntitySet="CallingCourier" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CallingCourier_ToCountry" Association="Self.FK_CallingCourier_ToCountry">
-            <End Role="Country" EntitySet="Country" />
-            <End Role="CallingCourier" EntitySet="CallingCourier" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CallingCourier_ToDepartureType" Association="Self.FK_CallingCourier_ToDepartureType">
-            <End Role="DepartureType" EntitySet="DepartureType" />
-            <End Role="CallingCourier" EntitySet="CallingCourier" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CallingCourier_ToTariffsView" Association="Self.FK_CallingCourier_ToTariffsView">
-            <End Role="TariffsView" EntitySet="TariffsView" />
-            <End Role="CallingCourier" EntitySet="CallingCourier" />
-          </AssociationSet>
-          <AssociationSet Name="FK_City_ToCountry" Association="Self.FK_City_ToCountry">
-            <End Role="Country" EntitySet="Country" />
-            <End Role="City" EntitySet="City" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DescriptionOfGoods_ToCity" Association="Self.FK_DescriptionOfGoods_ToCity">
-            <End Role="City" EntitySet="City" />
-            <End Role="DescriptionOfGoods" EntitySet="DescriptionOfGoods" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DescriptionOfGoods_ToCountry" Association="Self.FK_DescriptionOfGoods_ToCountry">
-            <End Role="Country" EntitySet="Country" />
-            <End Role="DescriptionOfGoods" EntitySet="DescriptionOfGoods" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DescriptionOfGoods_ToDepartureType" Association="Self.FK_DescriptionOfGoods_ToDepartureType">
-            <End Role="DepartureType" EntitySet="DepartureType" />
-            <End Role="DescriptionOfGoods" EntitySet="DescriptionOfGoods" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DescriptionOfGoods_ToTariffsView" Association="Self.FK_DescriptionOfGoods_ToTariffsView">
-            <End Role="TariffsView" EntitySet="TariffsView" />
-            <End Role="DescriptionOfGoods" EntitySet="DescriptionOfGoods" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Feedback_ToMessageTheme" Association="Self.FK_Feedback_ToMessageTheme">
-            <End Role="MessageTheme" EntitySet="MessageTheme" />
-            <End Role="Feedback" EntitySet="Feedback" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FormOfPayment_FormOfPayment" Association="Self.FK_FormOfPayment_FormOfPayment">
-            <End Role="FormOfPayment" EntitySet="FormOfPayment" />
-            <End Role="Sender" EntitySet="Sender" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
+    <Schema Namespace="ServerValidation_DbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ServerValidation_DbModelStoreContainer">
+    <EntitySet Name="Feedbacks" EntityType="ServerValidation_DbModel.Store.Feedbacks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MessageThemes" EntityType="ServerValidation_DbModel.Store.MessageThemes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FormOfPayments" EntityType="ServerValidation_DbModel.Store.FormOfPayments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Senders" EntityType="ServerValidation_DbModel.Store.Senders" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Cities" EntityType="ServerValidation_DbModel.Store.Cities" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Countries" EntityType="ServerValidation_DbModel.Store.Countries" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DepartureTypes" EntityType="ServerValidation_DbModel.Store.DepartureTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DescriptionOfGoods" EntityType="ServerValidation_DbModel.Store.DescriptionOfGoods" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TariffsViews" EntityType="ServerValidation_DbModel.Store.TariffsViews" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CallingCouriers" EntityType="ServerValidation_DbModel.Store.CallingCouriers" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Feedback_ToMessageTheme" Association="ServerValidation_DbModel.Store.FK_Feedback_ToMessageTheme">
+      <End Role="MessageTheme" EntitySet="MessageThemes" />
+      <End Role="Feedback" EntitySet="Feedbacks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FormOfPayment_FormOfPayment" Association="ServerValidation_DbModel.Store.FK_FormOfPayment_FormOfPayment">
+      <End Role="FormOfPayment" EntitySet="FormOfPayments" />
+      <End Role="Sender" EntitySet="Senders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_City_ToCountry" Association="ServerValidation_DbModel.Store.FK_City_ToCountry">
+      <End Role="Country" EntitySet="Countries" />
+      <End Role="City" EntitySet="Cities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DescriptionOfGoods_ToCity" Association="ServerValidation_DbModel.Store.FK_DescriptionOfGoods_ToCity">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="DescriptionOfGood" EntitySet="DescriptionOfGoods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DescriptionOfGoods_ToCountry" Association="ServerValidation_DbModel.Store.FK_DescriptionOfGoods_ToCountry">
+      <End Role="Country" EntitySet="Countries" />
+      <End Role="DescriptionOfGood" EntitySet="DescriptionOfGoods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DescriptionOfGoods_ToDepartureType" Association="ServerValidation_DbModel.Store.FK_DescriptionOfGoods_ToDepartureType">
+      <End Role="DepartureType" EntitySet="DepartureTypes" />
+      <End Role="DescriptionOfGood" EntitySet="DescriptionOfGoods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DescriptionOfGoods_ToTariffsView" Association="ServerValidation_DbModel.Store.FK_DescriptionOfGoods_ToTariffsView">
+      <End Role="TariffsView" EntitySet="TariffsViews" />
+      <End Role="DescriptionOfGood" EntitySet="DescriptionOfGoods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CallingCourier_FormOfPayment" Association="ServerValidation_DbModel.Store.FK_CallingCourier_FormOfPayment">
+      <End Role="FormOfPayment" EntitySet="FormOfPayments" />
+      <End Role="CallingCourier" EntitySet="CallingCouriers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CallingCourier_ToCity" Association="ServerValidation_DbModel.Store.FK_CallingCourier_ToCity">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="CallingCourier" EntitySet="CallingCouriers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CallingCourier_ToCountry" Association="ServerValidation_DbModel.Store.FK_CallingCourier_ToCountry">
+      <End Role="Country" EntitySet="Countries" />
+      <End Role="CallingCourier" EntitySet="CallingCouriers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CallingCourier_ToDepartureType" Association="ServerValidation_DbModel.Store.FK_CallingCourier_ToDepartureType">
+      <End Role="DepartureType" EntitySet="DepartureTypes" />
+      <End Role="CallingCourier" EntitySet="CallingCouriers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CallingCourier_ToTariffsView" Association="ServerValidation_DbModel.Store.FK_CallingCourier_ToTariffsView">
+      <End Role="TariffsView" EntitySet="TariffsViews" />
+      <End Role="CallingCourier" EntitySet="CallingCouriers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Feedbacks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="true" MaxLength="250" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="MessageThemeId" Type="int" Nullable="false" />
+    <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MessageThemes">
+    <Key>
+      <PropertyRef Name="MessageThemeId" />
+    </Key>
+    <Property Name="MessageThemeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ThemeName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FormOfPayments">
+    <Key>
+      <PropertyRef Name="FormOfPaymentId" />
+    </Key>
+    <Property Name="FormOfPaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Senders">
+    <Key>
+      <PropertyRef Name="SenderId" />
+    </Key>
+    <Property Name="SenderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BIN_IIN" Type="char" Nullable="false" MaxLength="12" />
+    <Property Name="ContactPerson" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="SendersAddress" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="DesirableDate" Type="datetime" Nullable="false" />
+    <Property Name="WhenPickUpShipment" Type="time" Nullable="false" Precision="7" />
+    <Property Name="FormOfPaymentId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cities">
+    <Key>
+      <PropertyRef Name="CityId" />
+    </Key>
+    <Property Name="CityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CityName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CountryId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Countries">
+    <Key>
+      <PropertyRef Name="CountryId" />
+    </Key>
+    <Property Name="CountryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CountryName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DepartureTypes">
+    <Key>
+      <PropertyRef Name="DepartureTypeId" />
+    </Key>
+    <Property Name="DepartureTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepartureTypeName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DescriptionOfGoods">
+    <Key>
+      <PropertyRef Name="DescriptionOfGoodsId" />
+    </Key>
+    <Property Name="DescriptionOfGoodsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CountryId" Type="int" Nullable="false" />
+    <Property Name="CityId" Type="int" Nullable="false" />
+    <Property Name="DepartureTypeId" Type="int" Nullable="false" />
+    <Property Name="TariffsViewId" Type="int" Nullable="false" />
+    <Property Name="Weight" Type="decimal" Nullable="false" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="TariffsViews">
+    <Key>
+      <PropertyRef Name="TariffsViewId" />
+    </Key>
+    <Property Name="TariffsViewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TariffsViewName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CallingCouriers">
+    <Key>
+      <PropertyRef Name="CallingCourierId" />
+    </Key>
+    <Property Name="CallingCourierId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BIN_IIN" Type="char" Nullable="false" MaxLength="12" />
+    <Property Name="ContactPerson" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="SendersAddress" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="DesirableDate" Type="datetime" Nullable="false" />
+    <Property Name="WhenPickUpShipment" Type="time" Nullable="false" Precision="7" />
+    <Property Name="FormOfPaymentId" Type="int" Nullable="false" />
+    <Property Name="CountryId" Type="int" Nullable="false" />
+    <Property Name="CityId" Type="int" Nullable="false" />
+    <Property Name="DepartureTypeId" Type="int" Nullable="false" />
+    <Property Name="TariffsViewId" Type="int" Nullable="false" />
+    <Property Name="Weight" Type="decimal" Nullable="false" Precision="18" Scale="0" />
+  </EntityType>
+  <Association Name="FK_Feedback_ToMessageTheme">
+    <End Role="MessageTheme" Type="ServerValidation_DbModel.Store.MessageThemes" Multiplicity="1" />
+    <End Role="Feedback" Type="ServerValidation_DbModel.Store.Feedbacks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MessageTheme">
+        <PropertyRef Name="MessageThemeId" />
+      </Principal>
+      <Dependent Role="Feedback">
+        <PropertyRef Name="MessageThemeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FormOfPayment_FormOfPayment">
+    <End Role="FormOfPayment" Type="ServerValidation_DbModel.Store.FormOfPayments" Multiplicity="1" />
+    <End Role="Sender" Type="ServerValidation_DbModel.Store.Senders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FormOfPayment">
+        <PropertyRef Name="FormOfPaymentId" />
+      </Principal>
+      <Dependent Role="Sender">
+        <PropertyRef Name="FormOfPaymentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_City_ToCountry">
+    <End Role="Country" Type="ServerValidation_DbModel.Store.Countries" Multiplicity="1" />
+    <End Role="City" Type="ServerValidation_DbModel.Store.Cities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryId" />
+      </Principal>
+      <Dependent Role="City">
+        <PropertyRef Name="CountryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DescriptionOfGoods_ToCity">
+    <End Role="City" Type="ServerValidation_DbModel.Store.Cities" Multiplicity="1" />
+    <End Role="DescriptionOfGood" Type="ServerValidation_DbModel.Store.DescriptionOfGoods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="CityId" />
+      </Principal>
+      <Dependent Role="DescriptionOfGood">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DescriptionOfGoods_ToCountry">
+    <End Role="Country" Type="ServerValidation_DbModel.Store.Countries" Multiplicity="1" />
+    <End Role="DescriptionOfGood" Type="ServerValidation_DbModel.Store.DescriptionOfGoods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryId" />
+      </Principal>
+      <Dependent Role="DescriptionOfGood">
+        <PropertyRef Name="CountryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DescriptionOfGoods_ToDepartureType">
+    <End Role="DepartureType" Type="ServerValidation_DbModel.Store.DepartureTypes" Multiplicity="1" />
+    <End Role="DescriptionOfGood" Type="ServerValidation_DbModel.Store.DescriptionOfGoods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DepartureType">
+        <PropertyRef Name="DepartureTypeId" />
+      </Principal>
+      <Dependent Role="DescriptionOfGood">
+        <PropertyRef Name="DepartureTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DescriptionOfGoods_ToTariffsView">
+    <End Role="TariffsView" Type="ServerValidation_DbModel.Store.TariffsViews" Multiplicity="1" />
+    <End Role="DescriptionOfGood" Type="ServerValidation_DbModel.Store.DescriptionOfGoods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TariffsView">
+        <PropertyRef Name="TariffsViewId" />
+      </Principal>
+      <Dependent Role="DescriptionOfGood">
+        <PropertyRef Name="TariffsViewId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CallingCourier_FormOfPayment">
+    <End Role="FormOfPayment" Type="ServerValidation_DbModel.Store.FormOfPayments" Multiplicity="1" />
+    <End Role="CallingCourier" Type="ServerValidation_DbModel.Store.CallingCouriers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FormOfPayment">
+        <PropertyRef Name="FormOfPaymentId" />
+      </Principal>
+      <Dependent Role="CallingCourier">
+        <PropertyRef Name="FormOfPaymentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CallingCourier_ToCity">
+    <End Role="City" Type="ServerValidation_DbModel.Store.Cities" Multiplicity="1" />
+    <End Role="CallingCourier" Type="ServerValidation_DbModel.Store.CallingCouriers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="CityId" />
+      </Principal>
+      <Dependent Role="CallingCourier">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CallingCourier_ToCountry">
+    <End Role="Country" Type="ServerValidation_DbModel.Store.Countries" Multiplicity="1" />
+    <End Role="CallingCourier" Type="ServerValidation_DbModel.Store.CallingCouriers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryId" />
+      </Principal>
+      <Dependent Role="CallingCourier">
+        <PropertyRef Name="CountryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CallingCourier_ToDepartureType">
+    <End Role="DepartureType" Type="ServerValidation_DbModel.Store.DepartureTypes" Multiplicity="1" />
+    <End Role="CallingCourier" Type="ServerValidation_DbModel.Store.CallingCouriers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DepartureType">
+        <PropertyRef Name="DepartureTypeId" />
+      </Principal>
+      <Dependent Role="CallingCourier">
+        <PropertyRef Name="DepartureTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CallingCourier_ToTariffsView">
+    <End Role="TariffsView" Type="ServerValidation_DbModel.Store.TariffsViews" Multiplicity="1" />
+    <End Role="CallingCourier" Type="ServerValidation_DbModel.Store.CallingCouriers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TariffsView">
+        <PropertyRef Name="TariffsViewId" />
+      </Principal>
+      <Dependent Role="CallingCourier">
+        <PropertyRef Name="TariffsViewId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ServerValidation_DbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -635,116 +635,115 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ServerValidation_DbModelStoreContainer" CdmEntityContainer="ServerValidation_DbEntities">
-          <EntitySetMapping Name="Feedbacks">
-            <EntityTypeMapping TypeName="ServerValidation_DbModel.Feedback">
-              <MappingFragment StoreEntitySet="Feedback">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="MessageThemeId" ColumnName="MessageThemeId" />
-                <ScalarProperty Name="Question" ColumnName="Question" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MessageThemes">
-            <EntityTypeMapping TypeName="ServerValidation_DbModel.MessageTheme">
-              <MappingFragment StoreEntitySet="MessageTheme">
-                <ScalarProperty Name="MessageThemeId" ColumnName="MessageThemeId" />
-                <ScalarProperty Name="ThemeName" ColumnName="ThemeName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FormOfPayments">
-            <EntityTypeMapping TypeName="ServerValidation_DbModel.FormOfPayment">
-              <MappingFragment StoreEntitySet="FormOfPayment">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="FormOfPaymentId" ColumnName="FormOfPaymentId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Senders">
-            <EntityTypeMapping TypeName="ServerValidation_DbModel.Sender">
-              <MappingFragment StoreEntitySet="Sender">
-                <ScalarProperty Name="FormOfPaymentId" ColumnName="FormOfPaymentId" />
-                <ScalarProperty Name="WhenPickUpShipment" ColumnName="WhenPickUpShipment" />
-                <ScalarProperty Name="DesirableDate" ColumnName="DesirableDate" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="SendersAddress" ColumnName="SendersAddress" />
-                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
-                <ScalarProperty Name="BIN_IIN" ColumnName="BIN/IIN" />
-                <ScalarProperty Name="SenderId" ColumnName="SenderId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Cities">
-            <EntityTypeMapping TypeName="ServerValidation_DbModel.City">
-              <MappingFragment StoreEntitySet="City">
-                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
-                <ScalarProperty Name="CityName" ColumnName="CityName" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Countries">
-            <EntityTypeMapping TypeName="ServerValidation_DbModel.Country">
-              <MappingFragment StoreEntitySet="Country">
-                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
-                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DepartureTypes">
-            <EntityTypeMapping TypeName="ServerValidation_DbModel.DepartureType">
-              <MappingFragment StoreEntitySet="DepartureType">
-                <ScalarProperty Name="DepartureTypeName" ColumnName="DepartureTypeName" />
-                <ScalarProperty Name="DepartureTypeId" ColumnName="DepartureTypeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DescriptionOfGoods">
-            <EntityTypeMapping TypeName="ServerValidation_DbModel.DescriptionOfGood">
-              <MappingFragment StoreEntitySet="DescriptionOfGoods">
-                <ScalarProperty Name="Weight" ColumnName="Weight" />
-                <ScalarProperty Name="TariffsViewId" ColumnName="TariffsViewId" />
-                <ScalarProperty Name="DepartureTypeId" ColumnName="DepartureTypeId" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
-                <ScalarProperty Name="DescriptionOfGoodsId" ColumnName="DescriptionOfGoodsId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TariffsViews">
-            <EntityTypeMapping TypeName="ServerValidation_DbModel.TariffsView">
-              <MappingFragment StoreEntitySet="TariffsView">
-                <ScalarProperty Name="TariffsViewName" ColumnName="TariffsViewName" />
-                <ScalarProperty Name="TariffsViewId" ColumnName="TariffsViewId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CallingCouriers">
-            <EntityTypeMapping TypeName="ServerValidation_DbModel.CallingCourier">
-              <MappingFragment StoreEntitySet="CallingCourier">
-                <ScalarProperty Name="Weight" ColumnName="Weight" />
-                <ScalarProperty Name="TariffsViewId" ColumnName="TariffsViewId" />
-                <ScalarProperty Name="DepartureTypeId" ColumnName="DepartureTypeId" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
-                <ScalarProperty Name="FormOfPaymentId" ColumnName="FormOfPaymentId" />
-                <ScalarProperty Name="WhenPickUpShipment" ColumnName="WhenPickUpShipment" />
-                <ScalarProperty Name="DesirableDate" ColumnName="DesirableDate" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="SendersAddress" ColumnName="SendersAddress" />
-                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
-                <ScalarProperty Name="BIN_IIN" ColumnName="BIN/IIN" />
-                <ScalarProperty Name="CallingCourierId" ColumnName="CallingCourierId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ServerValidation_DbModelStoreContainer" CdmEntityContainer="ServerValidation_DbEntities">
+    <EntitySetMapping Name="Feedbacks">
+      <EntityTypeMapping TypeName="IsTypeOf(ServerValidation_DbModel.Feedback)">
+        <MappingFragment StoreEntitySet="Feedbacks">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="MessageThemeId" ColumnName="MessageThemeId" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MessageThemes">
+      <EntityTypeMapping TypeName="IsTypeOf(ServerValidation_DbModel.MessageTheme)">
+        <MappingFragment StoreEntitySet="MessageThemes">
+          <ScalarProperty Name="MessageThemeId" ColumnName="MessageThemeId" />
+          <ScalarProperty Name="ThemeName" ColumnName="ThemeName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FormOfPayments">
+      <EntityTypeMapping TypeName="IsTypeOf(ServerValidation_DbModel.FormOfPayment)">
+        <MappingFragment StoreEntitySet="FormOfPayments">
+          <ScalarProperty Name="FormOfPaymentId" ColumnName="FormOfPaymentId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Senders">
+      <EntityTypeMapping TypeName="IsTypeOf(ServerValidation_DbModel.Sender)">
+        <MappingFragment StoreEntitySet="Senders">
+          <ScalarProperty Name="SenderId" ColumnName="SenderId" />
+          <ScalarProperty Name="BIN_IIN" ColumnName="BIN_IIN" />
+          <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+          <ScalarProperty Name="SendersAddress" ColumnName="SendersAddress" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="DesirableDate" ColumnName="DesirableDate" />
+          <ScalarProperty Name="WhenPickUpShipment" ColumnName="WhenPickUpShipment" />
+          <ScalarProperty Name="FormOfPaymentId" ColumnName="FormOfPaymentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cities">
+      <EntityTypeMapping TypeName="IsTypeOf(ServerValidation_DbModel.City)">
+        <MappingFragment StoreEntitySet="Cities">
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="CityName" ColumnName="CityName" />
+          <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Countries">
+      <EntityTypeMapping TypeName="IsTypeOf(ServerValidation_DbModel.Country)">
+        <MappingFragment StoreEntitySet="Countries">
+          <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+          <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DepartureTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(ServerValidation_DbModel.DepartureType)">
+        <MappingFragment StoreEntitySet="DepartureTypes">
+          <ScalarProperty Name="DepartureTypeId" ColumnName="DepartureTypeId" />
+          <ScalarProperty Name="DepartureTypeName" ColumnName="DepartureTypeName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DescriptionOfGoods">
+      <EntityTypeMapping TypeName="IsTypeOf(ServerValidation_DbModel.DescriptionOfGood)">
+        <MappingFragment StoreEntitySet="DescriptionOfGoods">
+          <ScalarProperty Name="DescriptionOfGoodsId" ColumnName="DescriptionOfGoodsId" />
+          <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="DepartureTypeId" ColumnName="DepartureTypeId" />
+          <ScalarProperty Name="TariffsViewId" ColumnName="TariffsViewId" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TariffsViews">
+      <EntityTypeMapping TypeName="IsTypeOf(ServerValidation_DbModel.TariffsView)">
+        <MappingFragment StoreEntitySet="TariffsViews">
+          <ScalarProperty Name="TariffsViewId" ColumnName="TariffsViewId" />
+          <ScalarProperty Name="TariffsViewName" ColumnName="TariffsViewName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CallingCouriers">
+      <EntityTypeMapping TypeName="IsTypeOf(ServerValidation_DbModel.CallingCourier)">
+        <MappingFragment StoreEntitySet="CallingCouriers">
+          <ScalarProperty Name="CallingCourierId" ColumnName="CallingCourierId" />
+          <ScalarProperty Name="BIN_IIN" ColumnName="BIN_IIN" />
+          <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+          <ScalarProperty Name="SendersAddress" ColumnName="SendersAddress" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="DesirableDate" ColumnName="DesirableDate" />
+          <ScalarProperty Name="WhenPickUpShipment" ColumnName="WhenPickUpShipment" />
+          <ScalarProperty Name="FormOfPaymentId" ColumnName="FormOfPaymentId" />
+          <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="DepartureTypeId" ColumnName="DepartureTypeId" />
+          <ScalarProperty Name="TariffsViewId" ColumnName="TariffsViewId" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -758,7 +757,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
