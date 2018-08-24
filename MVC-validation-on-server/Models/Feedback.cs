@@ -18,7 +18,6 @@ namespace MVC_validation_on_server.Models
     public partial class Feedback
     {
         public int Id { get; set; }
-        [Required]
         public string Name { get; set; }
         [Required]
         public string Email { get; set; }
